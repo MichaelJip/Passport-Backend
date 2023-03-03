@@ -55,11 +55,6 @@ app.post("/register", async (req, res) => {
     username,
     password,
   });
-
-  return res.send(201).json({
-    success: true,
-    message: "Welcome new user",
-  });
 });
 
 app.get("/get", (req, res) => {});
