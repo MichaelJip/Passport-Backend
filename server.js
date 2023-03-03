@@ -42,7 +42,7 @@ import { passport } from "./passportConfig.js";
 
 //Routes
 app.post("/login", (req, res) => {
-  passport.authenticate("local", (err, user, info) => {
+  passport.authenticate("local", (err, user, next) => {
     if (err) throw err;
     if (!user) res.send("No User Exists");
     else {
@@ -72,7 +72,9 @@ app.post("/register", async (req, res) => {
   });
 });
 
-app.get("/get", (req, res) => {});
+app.get("/user", (req, res) => {
+  res.send(req.user);
+});
 
 //Start server
 app.listen(process.env.PORT, () => {
