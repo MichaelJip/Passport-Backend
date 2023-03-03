@@ -9,6 +9,8 @@ import bcrypt from "bcrypt";
 import expressSession from "express-session";
 import bodyParser from "body-parser";
 import { User } from "./user.js";
+import { Passport } from "./passportConfig.js";
+
 dotenv.config({
   path: "./data/config.env",
 });
@@ -38,11 +40,11 @@ app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
 
-import { Passport } from "./passportConfig.js";
+Passport(passport);
 
 //Routes
 app.post("/login", (req, res) => {
-  Passport.authenticate("local", (err, user, next) => {
+  passport.authenticate("local", (err, user, next) => {
     if (err) throw err;
     if (!user) res.send("No User Exists");
     else {
