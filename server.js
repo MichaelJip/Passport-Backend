@@ -8,12 +8,14 @@ import cookieParser from "cookie-parser";
 import bcrypt from "bcrypt";
 import expressSession from "express-session";
 import bodyParser from "body-parser";
-
+import User from "./user.js";
 dotenv.config({
   path: "./data/config.env",
 });
 
 const app = express();
+
+mongoose.connect(process.env.MONGO_URI);
 
 // Middleware
 
@@ -39,7 +41,18 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  console.log(req.body);
+  User.findOne({ username: req.body.username }, async (err, doc) => {
+    if (err) throw err;
+    if (doc) res.send("User Already Exist");
+    if (!doc) {
+      const newUser = new User({
+        username: req.body.username,
+        password: req.body.password,
+      });
+      await newUser.save();
+      res.send("User Created");
+    }
+  });
 });
 
 app.post("/get", (req, res) => {});
