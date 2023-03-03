@@ -4,19 +4,19 @@ import passportLocal from "passport-local";
 
 export const Passport = function (passport) {
   passport.use(
-    new passportLocal.Strategy((username, password, done) => {
-      User.findOne({ username: username }, (err, user) => {
-        if (err) throw err;
+    new passportLocal.Strategy(async (username, password, done) => {
+      try {
+        const user = await User.findOne({ username: username }).exec();
         if (!user) return done(null, false);
-        bcrypt.compare(password, user.password, (err, result) => {
-          if (err) throw err;
-          if (result === true) {
-            return done(null, user);
-          } else {
-            return done(null, false);
-          }
-        });
-      });
+        const result = await bcrypt.compare(password, user.password);
+        if (result === true) {
+          return done(null, user);
+        } else {
+          return done(null, false);
+        }
+      } catch (err) {
+        return done(err);
+      }
     })
   );
   passport.serializeUser((user, cb) => {
