@@ -40,19 +40,20 @@ app.post("/login", (req, res) => {
   console.log(req.body);
 });
 
-app.post("/register", (req, res) => {
-  const username = req.body;
-  User.findOne({ username }, async (err, doc) => {
-    if (err) throw err;
-    if (doc) res.send("User Already Exist");
-    if (!doc) {
-      const newUser = new User({
-        username: req.body.username,
-        password: req.body.password,
-      });
-      await newUser.save();
-      res.send("User Created");
-    }
+app.post("/register", async (req, res) => {
+  const { username, password } = req.body;
+
+  let user = await User.findOne({ username });
+
+  if (user)
+    return res.status(400).json({
+      success: false,
+      message: "User Already Exist",
+    });
+
+  user = await User.create({
+    username,
+    password,
   });
 });
 
