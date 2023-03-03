@@ -41,6 +41,7 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
+  const username = req.body;
   User.findOne({ username }, async (err, doc) => {
     if (err) throw err;
     if (doc) res.send("User Already Exist");
