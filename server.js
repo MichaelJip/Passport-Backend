@@ -43,8 +43,8 @@ app.use(passport.session());
 Passport(passport);
 
 //Routes
-app.post("/login", (req, res) => {
-  passport.authenticate("local", (err, user, next) => {
+app.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
     if (!user) res.send("No User Exists");
     else {
