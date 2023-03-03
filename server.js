@@ -46,7 +46,7 @@ app.post("/register", async (req, res) => {
   let user = await User.findOne({ username });
 
   if (user)
-    return res.status(400).json({
+    return res.status(500).json({
       success: false,
       message: "User Already Exist",
     });
@@ -55,6 +55,8 @@ app.post("/register", async (req, res) => {
     username,
     password,
   });
+
+  await user.save();
 });
 
 app.get("/get", (req, res) => {});
