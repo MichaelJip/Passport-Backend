@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import bcrypt from "bcrypt";
 import expressSession from "express-session";
 import bodyParser from "body-parser";
+import { User } from "./user.js";
 dotenv.config({
   path: "./data/config.env",
 });
