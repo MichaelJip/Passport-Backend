@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 import bcrypt from "bcrypt";
 import expressSession from "express-session";
 import bodyParser from "body-parser";
-import User from "./user.js";
+import { user } from "./user.js";
 dotenv.config({
   path: "./data/config.env",
 });
@@ -41,7 +41,7 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  User.findOne({ username: req.body.username }, async (err, doc) => {
+  user.findOne({ username: req.body.username }, async (err, doc) => {
     if (err) throw err;
     if (doc) res.send("User Already Exist");
     if (!doc) {
