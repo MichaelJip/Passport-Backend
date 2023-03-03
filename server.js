@@ -55,8 +55,6 @@ app.post("/register", async (req, res) => {
     username,
     password,
   });
-
-  await user.save();
 });
 
 app.get("/get", (req, res) => {});
