@@ -75,7 +75,7 @@ app.post("/register", async (req, res) => {
 });
 
 app.get("/user", (req, res) => {
-  res.send(req.user);
+  res.send(req.users);
 });
 
 //Start server
