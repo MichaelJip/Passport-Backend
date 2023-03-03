@@ -2,7 +2,7 @@ import { User } from "./user.js";
 import bcrypt from "bcrypt";
 import passportLocal from "passport-local";
 
-export const passport = function (passport) {
+export const Passport = function (passport) {
   passport.use(
     new passportLocal.Strategy((username, password, done) => {
       User.findOne({ username: username }, (err, user) => {

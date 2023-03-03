@@ -38,11 +38,11 @@ app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
 
-import { passport } from "./passportConfig.js";
+import { Passport } from "./passportConfig.js";
 
 //Routes
 app.post("/login", (req, res) => {
-  passport.authenticate("local", (err, user, next) => {
+  Passport.authenticate("local", (err, user, next) => {
     if (err) throw err;
     if (!user) res.send("No User Exists");
     else {
