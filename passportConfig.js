@@ -22,12 +22,15 @@ export const Passport = function (passport) {
   passport.serializeUser((user, cb) => {
     cb(null, user.id);
   });
-  passport.deserializeUser((id, cb) => {
-    User.findOne({ _id: id }, (err, user) => {
+  passport.deserializeUser(async (id, cb) => {
+    try {
+      const user = await User.findOne({ _id: id }).exec();
       const userInformation = {
         username: user.username,
       };
-      cb(err, userInformation);
-    });
+      cb(null, userInformation);
+    } catch (err) {
+      cb(err);
+    }
   });
 };
