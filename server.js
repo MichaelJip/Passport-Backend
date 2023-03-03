@@ -1,13 +1,13 @@
-import mongoose from "mongoose";
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import passport from "passport";
-import passportLocal from "passport-local";
-import cookieParser from "cookie-parser";
-import bcrypt from "bcrypt";
-import expressSession from "express-session";
-import bodyParser from "body-parser";
+const mongoose = require("mongoose");
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const passport = require("passport");
+const passportLocal = require("passport-local");
+const cookieParser = require("cookie-parser");
+const bcrypt = require("bcrypt");
+const expressSession = require("express-session");
+const bodyParser = require("body-parser");
 
 dotenv.config({
   path: "./data/config.env",
@@ -42,9 +42,13 @@ app.post("/register", (req, res) => {
   console.log(req.body);
 });
 
-app.post("/get", (req, res) => {});
+app.get("/get", (req, res) => {});
+
+app.use("/", (req, res) => {
+  res.send("Working");
+});
 
 //Start server
 app.listen(process.env.PORT, () => {
-  `Server up at ${process.env.PORT}`;
+  `Server up at ${process.env.PORT} asdasdas`;
 });
