@@ -41,7 +41,7 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  User.findOne({ username: req.body.username }, async (err, doc) => {
+  User.findOne({ username }, async (err, doc) => {
     if (err) throw err;
     if (doc) res.send("User Already Exist");
     if (!doc) {
@@ -55,7 +55,7 @@ app.post("/register", (req, res) => {
   });
 });
 
-app.post("/get", (req, res) => {});
+app.get("/get", (req, res) => {});
 
 //Start server
 app.listen(process.env.PORT, () => {
